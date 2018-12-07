@@ -69,7 +69,7 @@ namespace MetaPasarela
 
                     ValidIssuer = "*",
                     ValidAudience = "*",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superCretetdfadfgdfgdgwefrwR54WE#43d#$%@13"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superCrete246754d(=?34ddsdBXsdg%$%FG&6HHfQWAccgt8678FGFASDF&%&56zx#$%GHCVBTYTRYFGGFHfgh&/ghtdgfd989dfgDFGdfg98dfgE5345dsf5sd6fsdf%$654fdgdfgd3681=(3459&#232342fsdf)=fadfgdfgdgwefrwR54WE#43d#$%@13"))
                 };
 
             });

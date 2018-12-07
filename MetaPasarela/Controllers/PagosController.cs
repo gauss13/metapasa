@@ -17,9 +17,9 @@ namespace MetaPasarela.Controllers
     {
         public readonly IRepositorioWrapper Repositorio;
         public readonly Serilog.ILogger loggerdb;
-        private readonly ILogger<Regla> loggertxt;
+        private readonly ILogger<Transaccion> loggertxt;
 
-        public PagosController(IRepositorioWrapper rep, ILogger<Regla> logger, Serilog.ILogger seriLog)
+        public PagosController(IRepositorioWrapper rep, ILogger<Transaccion> logger, Serilog.ILogger seriLog)
         {
             Repositorio = rep;
             this.loggertxt = logger;

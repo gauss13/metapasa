@@ -17,12 +17,12 @@ namespace MetaPasarela.Controllers
     public class UsuarioController : ControllerBase
     {
         public readonly IRepositorioWrapper Repositorio;
-        public readonly Serilog.ILogger SeriLogger;
-        private readonly ILogger<Usuario> logger;
+        public readonly Serilog.ILogger loggerdb;
+        private readonly ILogger<Usuario> loggertxt;
         public UsuarioController(IRepositorioWrapper rep, ILogger<Usuario> logger, Serilog.ILogger seriLog)
         {
-            this.logger = logger;
-            this.SeriLogger = seriLog;
+            this.loggertxt = logger;
+            this.loggerdb = seriLog;
             Repositorio = rep;
         }
 
@@ -70,14 +70,8 @@ namespace MetaPasarela.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var lista = await this.Repositorio.Usuarios.GetAllAsyc();
-
-            logger.LogDebug("Mensaje debug");
-            logger.LogWarning("Mensaje warning");
-
-            logger.LogError("Mensaje error");
-            SeriLogger.Error("mensaje error");
-
+            var lista = await this.Repositorio.Usuarios.GetAllAsyc();    
+          
             foreach (var item in lista)
             {
                 item.Password = ":)";

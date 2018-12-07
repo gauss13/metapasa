@@ -22,9 +22,9 @@ namespace MetaPasarela.Controllers
     {
         public readonly IRepositorioWrapper Repositorio;
         public readonly Serilog.ILogger loggerdb;
-        private readonly ILogger<Regla> loggertxt;
+        private readonly ILogger<Usuario> loggertxt;
 
-        public LoginController(IRepositorioWrapper rep, ILogger<Regla> logger, Serilog.ILogger seriLog)
+        public LoginController(IRepositorioWrapper rep, ILogger<Usuario> logger, Serilog.ILogger seriLog)
         {
             Repositorio = rep;
             this.loggertxt = logger;
@@ -56,9 +56,15 @@ namespace MetaPasarela.Controllers
                     return Ok(new { ok = false, mensaje = $"El correo {usuario.Correo} esta registrado {itemdb.Count()} veces" });
                 }
 
-
                 // Validar el password
                 var usuariodb = itemdb.FirstOrDefault();
+
+                // este activo
+                if(usuariodb.Activo == false)
+                {
+                    this.loggertxt.LogWarning($"El correo {usuario.Correo} esta Bloqueado");
+                    return Ok(new { ok = false, mensaje = $"El correo {usuario.Correo} esta Bloqueado" });
+                }
 
                 var valid = CryptoHelper.Crypto.VerifyHashedPassword(usuariodb.Password, usuario.Password);
 
@@ -96,10 +102,15 @@ namespace MetaPasarela.Controllers
 
         }
 
+        [HttpPut("{idu:int}")]
+        public void Logout(Usuario usuario,int idu)
+        {
+            this.loggertxt.LogInformation($"Fin de sesión {usuario.Correo}");
+        }
 
         public string GenerarToken(Usuario usuario)
         {
-            var claveSecreta = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superCretetdfadfgdfgdgwefrwR54WE#43d#$%@13"));
+            var claveSecreta = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superCrete246754d(=?34ddsdBXsdg%$%FG&6HHfQWAccgt8678FGFASDF&%&56zx#$%GHCVBTYTRYFGGFHfgh&/ghtdgfd989dfgDFGdfg98dfgE5345dsf5sd6fsdf%$654fdgdfgd3681=(3459&#232342fsdf)=fadfgdfgdgwefrwR54WE#43d#$%@13"));
             var credencialFirma = new SigningCredentials(claveSecreta, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>

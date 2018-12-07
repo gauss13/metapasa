@@ -16,7 +16,7 @@ namespace MetaPasarela.Controllers
     {
         public readonly IRepositorioWrapper Repositorio;
         public readonly Serilog.ILogger seriLogger;
-        private readonly ILogger<Usuario> logger;
+        private readonly ILogger<UsuarioEntidad> logger;
 
         private bool ok = false;
         private string mensaje = "";
@@ -24,7 +24,7 @@ namespace MetaPasarela.Controllers
         private List<object> registros = null;
         private int total = 0;
 
-        public UsuarioEntidadesController(IRepositorioWrapper rep, ILogger<Usuario> logger, Serilog.ILogger seriLog)
+        public UsuarioEntidadesController(IRepositorioWrapper rep, ILogger<UsuarioEntidad> logger, Serilog.ILogger seriLog)
         {
             this.logger = logger;
             this.seriLogger = seriLog;
