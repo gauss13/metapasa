@@ -10,6 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Meta.Repository;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 namespace MetaPasarela
 {
@@ -52,6 +56,24 @@ namespace MetaPasarela
             // Midleware Repository
             services.AddScoped<IRepositorioWrapper, RepositorioWrapper>();
 
+            //JWT
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = "*",
+                    ValidAudience = "*",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superCretetdfadfgdfgdgwefrwR54WE#43d#$%@13"))
+                };
+
+            });
+
 
             // Configura CORS
             services.AddCors(options => {
@@ -88,9 +110,13 @@ namespace MetaPasarela
 
 
             //Logger txt
-            loggerFactory.AddFile("log-{Date}.txt");
+            loggerFactory.AddFile("metalog-{Date}.txt");
 
             app.UseCors("EnableCORS");
+
+            //Jwt
+            app.UseAuthentication();
+
             //app.UseHttpsRedirection();//abc
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
