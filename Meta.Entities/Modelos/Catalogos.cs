@@ -12,6 +12,21 @@ namespace Meta.Entities.Modelos
         public string Nombre { get; set; }        
     }
 
+    public class Usuario
+    {
+        public int Id { get; set; }
+        [StringLength(50)]
+        public string Correo { get; set; }
+        public string Password { get; set; }
+        [StringLength(50)]
+        public string Descripcion { get; set; }
+        public int RolId { get; set; }
+        public bool Activo { get; set; }
+        public DateTime FechaReg { get; set; }
+        [StringLength(250)]
+        public string UrlInvocacion { get; set; }// para los tipo de rol pasarela
+        public Rol Rol { get; set; }//nav
+    }
 
     public class Grupo
     {
@@ -93,21 +108,7 @@ namespace Meta.Entities.Modelos
         public List<Regla> Reglas { get; set; }
     }
 
-    public class Usuario
-    {
-        public int Id { get; set; }
-        [StringLength(50)]
-        public string Correo { get; set; }
-        public string Password { get; set; }
-        [StringLength(50)]
-        public string Descripcion { get; set; }
-        public int RolId { get; set; }
-        public bool Activo { get; set; }
-        public DateTime FechaReg { get; set; }
-        [StringLength(250)]
-        public string UrlInvocacion { get; set; }// para los tipo de rol pasarela
-        public Rol Rol { get; set; }//nav
-    }
+ 
 
     // INTERMEDIOS
 
