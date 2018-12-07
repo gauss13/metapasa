@@ -1,0 +1,8 @@
+C:\Proyectos\MetaPasarela\Meta.Logs\bin\Debug\netstandard2.0\Meta.Logs.deps.json
+C:\Proyectos\MetaPasarela\Meta.Logs\bin\Debug\netstandard2.0\Meta.Logs.dll
+C:\Proyectos\MetaPasarela\Meta.Logs\bin\Debug\netstandard2.0\Meta.Logs.pdb
+C:\Proyectos\MetaPasarela\Meta.Logs\obj\Debug\netstandard2.0\Meta.Logs.csproj.CoreCompileInputs.cache
+C:\Proyectos\MetaPasarela\Meta.Logs\obj\Debug\netstandard2.0\Meta.Logs.AssemblyInfoInputs.cache
+C:\Proyectos\MetaPasarela\Meta.Logs\obj\Debug\netstandard2.0\Meta.Logs.AssemblyInfo.cs
+C:\Proyectos\MetaPasarela\Meta.Logs\obj\Debug\netstandard2.0\Meta.Logs.dll
+C:\Proyectos\MetaPasarela\Meta.Logs\obj\Debug\netstandard2.0\Meta.Logs.pdb
