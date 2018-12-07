@@ -70,6 +70,8 @@ namespace MetaPasarela.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            var r = await Utils.BancoMexico.GetTipoCambio();
+
             var lista = await this.Repositorio.Usuarios.GetAllAsyc();    
           
             foreach (var item in lista)
