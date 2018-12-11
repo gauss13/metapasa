@@ -37,6 +37,16 @@ namespace MetaPasarela.Controllers
         {
             try
             {
+                if(usuario.Correo == null || usuario.Password == null)
+                {
+                    return Ok(new { ok = false, mensaje = $"Debe escribir los datos completos, correo y password" });
+                }
+
+               if(usuario.Correo.Length <= 0 || usuario.Password.Length <= 0)
+                {
+                    return Ok(new { ok = false, mensaje = $"Debe escribir los datos completos, correo y password" });
+                }
+
                 //eliminar los espacion en blanco
                 usuario.Correo = usuario.Correo.Trim();
                 usuario.Password = usuario.Password.Trim();
@@ -47,7 +57,7 @@ namespace MetaPasarela.Controllers
                 if (!itemdb.Any())
                 {
                     this.loggertxt.LogWarning($"Correo no registrado {usuario.Correo}");
-                    return Ok(new { ok = false, mensaje = $"No se encontró registro para el correo: {usuario.Correo}" });
+                    return Ok(new { ok = false, mensaje = $"El correo: {usuario.Correo} no está registrado." });
                 }
 
                 if (itemdb.Count() > 1)
