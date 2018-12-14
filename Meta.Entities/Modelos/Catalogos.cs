@@ -32,11 +32,7 @@ namespace Meta.Entities.Modelos
     {
         public int Id { get; set; }
         [StringLength(20)]
-        public string Nombre { get; set; }
-        public int PasarelaId  { get; set; }
-        public int RedPagoId { get; set; }
-        public Pasarela Pasarela { get; set; } // nav
-        public RedPago RedPago { get; set; } // nav
+        public string Nombre { get; set; } 
         public List<Pais> Paises { get; set; }//nav
         public List<Regla> Reglas { get; set; } // nav
 
@@ -49,8 +45,8 @@ namespace Meta.Entities.Modelos
         [StringLength(20)]
         public string Nombre { get; set; }
         [StringLength(2)]
-        public string Codigo { get; set; }
-        public List<Regla> Reglas { get; set; }//nav
+        public string Codigo { get; set; }     
+        public List<Regla> Reglas { get; set; } // nav
 
     }
 
@@ -77,11 +73,13 @@ namespace Meta.Entities.Modelos
     {
         public int Id { get; set; }
         public int EntidadId { get; set; }
-        public int PasarelaId { get; set; }   
+        public int PasarelaId { get; set; }
+        [StringLength(20)]
         public string NumAfiliacion { get; set; }
         [StringLength(3)]
         public string Divisa { get; set; }
         public bool Activo { get; set; }
+        public bool Principal { get; set; }
         public Entidad Entidad { get; set; }
         public Pasarela Pasarela { get; set; }
     }

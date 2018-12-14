@@ -26,6 +26,7 @@ namespace Meta.Repository
             Transacciones = new RepositorioTransaccion(_Context);
             TransaccionEstados = new RepositorioEstadoTransaccion(_Context);
             Reglas = new RepositorioRegla(_Context);
+            Afiliaciones = new RepositorioAfiliacion(_Context);
 
         }
 
@@ -43,6 +44,7 @@ namespace Meta.Repository
         public IRepositorioTransaccion Transacciones { get; private set; }
         public IRepositorioTransaccionEstado TransaccionEstados { get; private set; }
         public IRepositorioRegla Reglas { get; private set; }
+        public IRepositorioAfiliacion Afiliaciones { get; private set; }
 
 
         public async Task<int> CompleteAsync()

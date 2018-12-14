@@ -43,8 +43,12 @@ namespace Meta.Entities.Modelos
         public string Estado { get; set; }// contendrá el estado actual el ultimo registra en la tabla EstadoTransaccion
         public DateTime FechaReg { get; set; }
         public int UsuarioId { get; set; }
-       
-      
+        [StringLength(50)]
+        public string Ordenante { get; set; }// 
+        [StringLength(20)]
+        public string Afiliacion { get; set; }// numero de afiliacion
+
+
         public Usuario Usuario { get; set; } // nav
         public Pasarela Pasarela { get; set; } // nav
         public RedPago RedPago { get; set; } // nav

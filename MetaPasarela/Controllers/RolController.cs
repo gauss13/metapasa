@@ -39,9 +39,7 @@ namespace MetaPasarela.Controllers
                     return Ok(new { ok = false, mensaje = "No se encontró roles registrados." });
                 }
 
-                return Ok(new { ok= true, rol = lista, total = lista.Count() });
-
-            
+                return Ok(new { ok= true, rol = lista, total = lista.Count() });            
 
             }
             catch (Exception ex)

@@ -4,14 +4,16 @@ using Meta.Entities.Contextos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MetaPasarela.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181214151525_Inicial 10")]
+    partial class Inicial10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,12 +34,9 @@ namespace MetaPasarela.Migrations
 
                     b.Property<int>("EntidadId");
 
-                    b.Property<string>("NumAfiliacion")
-                        .HasMaxLength(20);
+                    b.Property<string>("NumAfiliacion");
 
                     b.Property<int>("PasarelaId");
-
-                    b.Property<bool>("Principal");
 
                     b.HasKey("Id");
 
@@ -173,8 +172,6 @@ namespace MetaPasarela.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("DefaultEntidad");
-
                     b.Property<int>("EntidadId");
 
                     b.Property<DateTime>("FechaReg");
@@ -226,8 +223,7 @@ namespace MetaPasarela.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Afiliacion")
-                        .HasMaxLength(20);
+                    b.Property<string>("Afiliacion");
 
                     b.Property<string>("Agente")
                         .HasMaxLength(50);
@@ -265,8 +261,7 @@ namespace MetaPasarela.Migrations
                     b.Property<decimal>("Importe")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<string>("Ordenante")
-                        .HasMaxLength(50);
+                    b.Property<string>("Ordenante");
 
                     b.Property<int>("PaisId");
 

@@ -14,8 +14,19 @@ namespace Meta.Entities.Extenciones
             itemdb.Descripcion = item.Descripcion;
             itemdb.RolId = item.RolId;
             itemdb.Activo = item.Activo;
-            itemdb.FechaReg = item.FechaReg;
+            //itemdb.FechaReg = item.FechaReg;
             itemdb.UrlInvocacion = item.UrlInvocacion;
+        }
+
+        public static void Map(this Regla itemdb, Regla item)
+        {
+            itemdb.EntidadId = item.EntidadId;
+            itemdb.GrupoId = item.GrupoId;
+            itemdb.PaisId = item.PaisId;
+            itemdb.RedPagoId = item.RedPagoId;
+            itemdb.PasarelaId = item.PasarelaId;                        
+            itemdb.DefaultEntidad = item.DefaultEntidad;
+
         }
 
     }

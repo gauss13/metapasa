@@ -245,4 +245,17 @@ namespace Meta.Repository
         }
     }
 
+    public class RepositorioAfiliacion : RepositorioBase<Afiliacion>, IRepositorioAfiliacion
+    {
+        public RepositorioAfiliacion(AppDbContext contexto) : base(contexto)
+        {
+        }
+
+        public AppDbContext appDbContext
+        {
+            get { return Context as AppDbContext; }
+        }
+    }
+
+
 }

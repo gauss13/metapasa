@@ -131,7 +131,7 @@ namespace MetaPasarela.Controllers
                 this.Repositorio.UsuarioEntidades.Remove(item);
                 await this.Repositorio.CompleteAsync();
 
-                mensaje = $"Se agregó la entidad, correctamente {item.EntidadId}:{item.UsuarioId}";
+                mensaje = $"Se quitó la entidad, correctamente {item.EntidadId}:{item.UsuarioId}";
                 this.loggertxt.LogInformation(mensaje);
 
                 return Ok(new { ok = true, mensaje, entidad= item });

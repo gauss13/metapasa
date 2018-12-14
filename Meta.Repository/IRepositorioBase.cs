@@ -73,4 +73,8 @@ namespace Meta.Repository
     {
         Task<IEnumerable<Regla>> GetReglasAllInclude(int ide);
     }
+
+    public interface IRepositorioAfiliacion : IRepositorioBase<Afiliacion>
+    {
+    }
 }

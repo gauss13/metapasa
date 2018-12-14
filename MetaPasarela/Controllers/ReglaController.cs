@@ -8,6 +8,7 @@ using MetaPasarela.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Meta.Entities.Extenciones;
 
 namespace MetaPasarela.Controllers
 {
@@ -18,8 +19,6 @@ namespace MetaPasarela.Controllers
         public readonly IRepositorioWrapper Repositorio;
         public readonly Serilog.ILogger loggerdb;
         private readonly ILogger<Regla> loggertxt;
-
-
 
         public ReglaController(IRepositorioWrapper rep, ILogger<Regla> logger, Serilog.ILogger seriLog)
         {
@@ -34,6 +33,16 @@ namespace MetaPasarela.Controllers
         {
             try
             {
+                // Validar que la regla ya este registrada en la bd 
+                var lista = await this.Repositorio.Reglas.FindAsyc(x => x.EntidadId == item.EntidadId &&  x.GrupoId == item.GrupoId && x.PaisId == item.PaisId &&
+                x.RedPagoId == item.RedPagoId && x.PasarelaId == item.PasarelaId && x.DefaultEntidad == item.DefaultEntidad);
+
+                if(lista.Any())
+                {
+                    return Ok(new { ok = false, mensaje = "La regla ya está registrada" });
+                }
+
+
                 item.FechaReg = DateTime.Now;
 
                 var r = await this.Repositorio.Reglas.AddAsync(item);
@@ -64,6 +73,63 @@ namespace MetaPasarela.Controllers
             }
         }
 
+        //Agregar Regla de entidad  - pasarela por defecto
+        [HttpPost]
+        public async Task<IActionResult> PasarelaDefault([FromBody] Regla item)
+        {
+
+            try
+            {
+                // validar que exista la regla
+                var lista = await this.Repositorio.Reglas.FindAsyc(x => x.EntidadId == item.EntidadId && x.DefaultEntidad == true);
+
+                // si existe se actualiza
+                if (lista.Any())
+                {
+                    var regladb = lista.FirstOrDefault();
+
+                    regladb.Map(item);
+
+                    var r = this.Repositorio.Reglas.Update(regladb);
+                    if (r != null)
+                    {
+                        this.loggertxt.LogInformation($"se actualizó la regla de la entidad {regladb.EntidadId}, pasarela default {regladb.PasarelaId} a la pasarela {item.PasarelaId}");
+
+                        return Ok(new { ok = true,   mensaje = "Se actualizó el registro correctamente", regla = r});
+                    }
+                    else
+                    {
+                        return Ok(new { ok = false, mensaje = "No se actualizo el registro."});
+                    }
+                }
+                else // sino, se agrega
+                {
+                    item.FechaReg = DateTime.Now;
+                    var r = await this.Repositorio.Reglas.AddAsync(item);
+                    if (r != null)
+                    {
+                        this.loggertxt.LogInformation($"Se agrego pasarela deault {r.PasarelaId} a la entidad {r.EntidadId}");
+
+                        return Ok(new { ok = true, mensaje = "Se agregó la pasarela por defecto a la entidad", regla = r });
+                    }
+                    else
+                    {
+                        return Ok(new { ok = false, mensaje = "No se guardó el registro." });
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    ok = false,
+                    mensaje = $"Se produjo un error al asignar la regla ",
+                    errors = new { mensaje = ex.Message }
+                });
+
+            }
+        }
 
         // Quitar 
         [HttpDelete("{idr:int}/{idu:int}")]
@@ -123,14 +189,13 @@ namespace MetaPasarela.Controllers
                     item.Grupo = reg.GrupoId == null ? "" : reg.Grupo.Nombre;
                     item.Idp = reg.PaisId == null ? 0 : reg.PaisId.Value;
                     item.Pais = reg.PaisId == null ? "" : reg.Pais.Nombre;
-                    item.Idr = reg.RedPagoId;
+                    item.Idr = reg.RedPagoId == null ? 0 : reg.RedPagoId.Value;
                     item.RedPago = reg.RedPago.Nombre;
                     item.Idpas = reg.PasarelaId;
                     item.Pasarela = reg.Pasarela.Nombre;
 
                     listaReglas.Add(item);
                 }
-
 
                 return Ok(new { ok = true, total = lista.Count(), reglas = listaReglas });
             }
@@ -145,8 +210,6 @@ namespace MetaPasarela.Controllers
 
             }
         }
-
-
 
     }
 }
