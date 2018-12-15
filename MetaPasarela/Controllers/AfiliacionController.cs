@@ -64,6 +64,9 @@ namespace MetaPasarela.Controllers
                 {
                     item.NumAfiliacion = item.NumAfiliacion.Trim();
 
+                    if(item.Divisa != null)
+                    item.Divisa = item.Divisa.Trim().ToUpper();
+
                     // validar si existe
                     var itemdb = await this.Repositorio.Afiliaciones.FindAsyc(x => x.NumAfiliacion == item.NumAfiliacion && x.EntidadId == item.EntidadId);
 
@@ -71,6 +74,8 @@ namespace MetaPasarela.Controllers
                     {
                         return Ok(new { ok = false, mensaje = "No se guardo el registro. El número de afiliacion ya esta registrado en esta entidad." });
                     }
+
+                    item.Activo = true;
 
                     var r = await this.Repositorio.Afiliaciones.AddAsync(item);
                     await this.Repositorio.CompleteAsync();
