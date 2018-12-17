@@ -122,4 +122,11 @@ namespace Meta.Entities.Modelos
         public int GrupoId { get; set; }
         public int PaisId { get; set; }
     }
+
+    public class Divisa// se usará para que el usuario no tenga que escribir los digitos y evitar que escriba de forma incorrecta
+    {
+        public int Id { get; set; }
+        [StringLength(3)]
+        public string Codigo { get; set; } // USD, MXN
+    }
 }

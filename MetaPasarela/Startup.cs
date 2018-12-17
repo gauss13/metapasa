@@ -1,3 +1,4 @@
+using Meta.Entities;
 using Meta.Entities.Contextos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,11 +40,10 @@ namespace MetaPasarela
            // }
            //);
 
-
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConecction"),
-                    b => b.MigrationsAssembly("MetaPasarela"));
+                    b => b.MigrationsAssembly("MetaPasarela"));//Meta.Entities  //MetaPasarela
             });
 
 

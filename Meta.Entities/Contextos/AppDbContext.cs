@@ -51,6 +51,7 @@ namespace Meta.Entities.Contextos
         public DbSet<TransaccionEstado> TransaccionEstados { get; set; }
         public DbSet<Regla> Reglas { get; set; }
         public DbSet<Afiliacion> Afiliaciones { get; set; }
+        public DbSet<Divisa> Divisas { get; set; }
 
 
     }

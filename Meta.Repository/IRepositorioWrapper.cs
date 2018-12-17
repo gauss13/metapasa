@@ -23,6 +23,8 @@ namespace Meta.Repository
         IRepositorioTransaccionEstado TransaccionEstados { get; }
         IRepositorioRegla Reglas { get; }
         IRepositorioAfiliacion Afiliaciones { get; }
+        IRepositorioDivisa Divisas { get; }
+
         Task<int> CompleteAsync();
 
     }

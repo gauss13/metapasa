@@ -257,5 +257,15 @@ namespace Meta.Repository
         }
     }
 
+    public class RepositorioDivisa : RepositorioBase<Divisa>, IRepositorioDivisa
+    {
+        public RepositorioDivisa(AppDbContext contexto) : base(contexto)
+        {
+        }
 
+        public AppDbContext appDbContext
+        {
+            get { return Context as AppDbContext; }
+        }
+    }
 }

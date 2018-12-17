@@ -77,4 +77,8 @@ namespace Meta.Repository
     public interface IRepositorioAfiliacion : IRepositorioBase<Afiliacion>
     {
     }
+
+    public interface IRepositorioDivisa : IRepositorioBase<Divisa>
+    {
+    }
 }
