@@ -92,6 +92,10 @@ namespace Meta.Repository
         {
             get { return Context as AppDbContext; }
         }
+
+        
+
+      
     }
 
 
@@ -191,6 +195,22 @@ namespace Meta.Repository
         public AppDbContext appDbContext
         {
             get { return Context as AppDbContext; }
+        }
+
+        public async Task<IEnumerable<GrupoPais>> GetGrupoConPais(int idg)
+        {
+            //return await appDbContext.Reglas
+            //        .Include(e => e.Entidad)
+            //        .Include(g => g.Grupo)
+            //        .Include(p => p.Pais)
+            //        .Include(r => r.RedPago)
+            //        .Include(p => p.Pasarela)
+            //        .Include(u => u.Usuario)
+            //        .Where(x => x.EntidadId == ide)
+            //        .ToListAsync();
+
+
+            return await appDbContext.GrupoPaises.Include(p => p.Pais).Where(x => x.GrupoId == idg).ToListAsync();
         }
     }
 

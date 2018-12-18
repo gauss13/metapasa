@@ -33,8 +33,7 @@ namespace Meta.Entities.Modelos
         public int Id { get; set; }
         [StringLength(20)]
         public string Nombre { get; set; } 
-        public List<Pais> Paises { get; set; }//nav
-        public List<Regla> Reglas { get; set; } // nav
+      
 
     }
 
@@ -47,7 +46,6 @@ namespace Meta.Entities.Modelos
         [StringLength(2)]
         public string Codigo { get; set; }     
         public List<Regla> Reglas { get; set; } // nav
-
     }
 
     public class Entidad
@@ -121,6 +119,9 @@ namespace Meta.Entities.Modelos
         public int Id { get; set; }
         public int GrupoId { get; set; }
         public int PaisId { get; set; }
+
+        public Pais Pais { get; set; }
+        public Grupo Grupo { get; set; }
     }
 
     public class Divisa// se usará para que el usuario no tenga que escribir los digitos y evitar que escriba de forma incorrecta

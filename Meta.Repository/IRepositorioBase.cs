@@ -33,6 +33,7 @@ namespace Meta.Repository
     }
     public interface IRepositorioGrupo : IRepositorioBase<Grupo>
     {
+      
     }
     public interface IRepositorioPais : IRepositorioBase<Pais>
     {
@@ -57,6 +58,7 @@ namespace Meta.Repository
     }
     public interface IRepositorioGrupoPais : IRepositorioBase<GrupoPais>
     {
+        Task<IEnumerable<GrupoPais>> GetGrupoConPais(int idg);
     }
 
 

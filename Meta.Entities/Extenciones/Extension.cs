@@ -29,5 +29,10 @@ namespace Meta.Entities.Extenciones
 
         }
 
+        public static void Map(this Grupo itemdb, Grupo item)
+        {
+            itemdb.Nombre = item.Nombre;          
+        }
+
     }
 }
