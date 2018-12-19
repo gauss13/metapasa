@@ -109,6 +109,10 @@ namespace MetaPasarela.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GrupoId");
+
+                    b.HasIndex("PaisId");
+
                     b.ToTable("GrupoPaises");
                 });
 
@@ -135,14 +139,10 @@ namespace MetaPasarela.Migrations
                     b.Property<string>("Codigo")
                         .HasMaxLength(2);
 
-                    b.Property<int?>("GrupoId");
-
                     b.Property<string>("Nombre")
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GrupoId");
 
                     b.ToTable("Paises");
                 });
@@ -282,14 +282,17 @@ namespace MetaPasarela.Migrations
                     b.Property<string>("Ordenante")
                         .HasMaxLength(50);
 
-                    b.Property<int>("PaisId");
+                    b.Property<string>("Pais")
+                        .HasMaxLength(2);
 
-                    b.Property<int>("PasarelaId");
+                    b.Property<string>("Pasarela")
+                        .HasMaxLength(20);
 
                     b.Property<decimal>("Ratio")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int>("RedPagoId");
+                    b.Property<string>("RedPago")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Referencia")
                         .HasMaxLength(20);
@@ -304,10 +307,6 @@ namespace MetaPasarela.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EntidadId");
-
-                    b.HasIndex("PasarelaId");
-
-                    b.HasIndex("RedPagoId");
 
                     b.HasIndex("UsuarioId");
 
@@ -397,11 +396,17 @@ namespace MetaPasarela.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Meta.Entities.Modelos.Pais", b =>
+            modelBuilder.Entity("Meta.Entities.Modelos.GrupoPais", b =>
                 {
-                    b.HasOne("Meta.Entities.Modelos.Grupo")
-                        .WithMany("Paises")
-                        .HasForeignKey("GrupoId");
+                    b.HasOne("Meta.Entities.Modelos.Grupo", "Grupo")
+                        .WithMany()
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Meta.Entities.Modelos.Pais", "Pais")
+                        .WithMany()
+                        .HasForeignKey("PaisId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Meta.Entities.Modelos.Regla", b =>
@@ -412,7 +417,7 @@ namespace MetaPasarela.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Meta.Entities.Modelos.Grupo", "Grupo")
-                        .WithMany("Reglas")
+                        .WithMany()
                         .HasForeignKey("GrupoId");
 
                     b.HasOne("Meta.Entities.Modelos.Pais", "Pais")
@@ -440,16 +445,6 @@ namespace MetaPasarela.Migrations
                     b.HasOne("Meta.Entities.Modelos.Entidad", "Entidad")
                         .WithMany()
                         .HasForeignKey("EntidadId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Meta.Entities.Modelos.Pasarela", "Pasarela")
-                        .WithMany()
-                        .HasForeignKey("PasarelaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Meta.Entities.Modelos.RedPago", "RedPago")
-                        .WithMany()
-                        .HasForeignKey("RedPagoId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Meta.Entities.Modelos.Usuario", "Usuario")

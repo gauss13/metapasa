@@ -69,7 +69,7 @@ namespace MetaPasarela.Controllers
 
                     this.loggertxt.LogInformation(mensaje);
 
-                    return Ok(new { ok = true, mensaje, afiliacion = r });
+                    return Ok(new { ok = true, mensaje, grupo = r });
                 }
                 else
                 {

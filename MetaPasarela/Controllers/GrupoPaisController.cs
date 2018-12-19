@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Meta.Entities.Modelos;
 using Meta.Entities.Extenciones;
 using Meta.Repository;
-
+using MetaPasarela.ViewModels;
 
 namespace MetaPasarela.Controllers
 {
@@ -31,14 +31,42 @@ namespace MetaPasarela.Controllers
         [HttpGet("{idg:int}")]
         public async Task<IActionResult> GetAll(int idg)
         {
-            var lista = await this.Repositorio.GrupoPaises.GetGrupoConPais(idg);
+            var paisesDelGrupo = await this.Repositorio.GrupoPaises.GetGrupoConPais(idg);
 
-            if(!lista.Any())
+            var listaPaises = await this.Repositorio.Paises.GetAllAsyc();
+
+            if (!listaPaises.Any())
             {
-                return Ok(new { ok=false, mensaje="No se encontró registros de Paises en el grupo"});
+                return Ok(new { ok = false, mensaje = "No se encontró registros de Países en el grupo" });
             }
 
-            return Ok(new { ok = true, total = lista.Count(), grupopais = lista });
+            List<VMPaisesGrupo> lista = new List<VMPaisesGrupo>();
+
+            foreach (var pais in listaPaises)
+            {
+                VMPaisesGrupo item = new VMPaisesGrupo();
+                item.Id = 0;
+                item.IdPais = pais.Id;
+                item.Nombre = pais.Nombre;
+                item.Codigo = pais.Codigo;
+
+                var en = paisesDelGrupo.FirstOrDefault(x => x.PaisId == pais.Id);
+
+                if (en != null)
+                {
+                    item.Id = en.Id;
+                    item.DelGrupo = true;
+                }
+
+                lista.Add(item);
+
+            }
+            lista = lista.OrderBy(x => x.Nombre).ThenBy(x => x.DelGrupo).ToList();
+
+            var listaNi = lista.Where(x => x.DelGrupo == false).ToList();
+            var listaIn = lista.Where(x => x.DelGrupo == true).ToList();
+
+            return Ok(new { ok = true, total = lista.Count(), paises = listaNi, incluidos=listaIn });
         }
 
         // GRUPO PAIS
@@ -51,9 +79,9 @@ namespace MetaPasarela.Controllers
                 await this.Repositorio.CompleteAsync();
 
                 if (r == null)
-                    return Ok(new { ok = false, mensaje = "No se pudo agregar el registro", grupo = r });
+                    return Ok(new { ok = false, mensaje = "No se pudo agregar el registro", pais = r });
 
-                return Ok(new { ok = true, mensaje = "Se agregó el pais, correctamente", grupo = r });
+                return Ok(new { ok = true, mensaje = "Se agregó el pais, correctamente", pais = r });
 
             }
             catch (Exception ex)
@@ -82,6 +110,7 @@ namespace MetaPasarela.Controllers
                 }
 
                 this.Repositorio.GrupoPaises.Remove(itemdb);
+                await this.Repositorio.CompleteAsync();
 
                 return Ok(new { ok = true, mensaje = "Se quitó el pais, correctamente" });
 

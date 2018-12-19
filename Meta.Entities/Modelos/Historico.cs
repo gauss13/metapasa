@@ -25,8 +25,7 @@ namespace Meta.Entities.Modelos
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Ratio { get; set; }// tipo de cambio- se obtiene del web service del Banco de mexico
         [StringLength(50)]
-        public string Agente { get; set; }
-     
+        public string Agente { get; set; }     
         [StringLength(20)]
         public string Idioma { get; set; } // ? español - codigo de idioma - es necesario tener un catalogo de idiomas
         [StringLength(20)]
@@ -34,9 +33,12 @@ namespace Meta.Entities.Modelos
         public bool Cancelado { get; set; } // ? - se quita o se se deja
         public bool Finalizado { get; set; }// el proceso concluyo - no hay intentos
         public bool Confirmado_Pms { get; set; }// descargas
-        public int PasarelaId { get; set; }
-        public int RedPagoId { get; set; }
-        public int PaisId { get; set; }
+        [StringLength(20)]
+        public string Pasarela { get; set; }
+        [StringLength(20)]
+        public string RedPago { get; set; }
+        [StringLength(2)]
+        public string Pais { get; set; }
         [StringLength(20)]
         public string ID_TPV { get; set; } //
         [StringLength(10)]
@@ -50,8 +52,8 @@ namespace Meta.Entities.Modelos
 
 
         public Usuario Usuario { get; set; } // nav
-        public Pasarela Pasarela { get; set; } // nav
-        public RedPago RedPago { get; set; } // nav
+       // public Pasarela Pasarela { get; set; } // nav
+        //public RedPago RedPago { get; set; } // nav
         public Entidad Entidad { get; set; } // nav
 
     }

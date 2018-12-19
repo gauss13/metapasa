@@ -124,7 +124,9 @@ namespace Meta.Entities.Modelos
         public Grupo Grupo { get; set; }
     }
 
-    public class Divisa// se usará para que el usuario no tenga que escribir los digitos y evitar que escriba de forma incorrecta
+    // se usará para que el usuario no tenga que escribir los digitos y evitar que escriba de forma incorrecta
+    // y se guardará el codigo no el id en las tablas donde se use la divisa.
+    public class Divisa
     {
         public int Id { get; set; }
         [StringLength(3)]
